@@ -26,6 +26,8 @@ services:
       - PMA_PASSWORD=root
 
   www:
+    # image: atsu666/ioncube:7.3
+    # platform: linux/amd64
     image: atsu666/acms:8.3
     privileged: true
     ports:
