@@ -1,0 +1,42 @@
+services:
+
+  mysql:
+    image: mysql:8.4.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+    command: --innodb-use-native-aio=0
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+
+  www:
+    image: atsu666/acms:8.3
+    privileged: true
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./www
+        target: /var/www/html
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime:ro
+
+volumes:
+  db:
