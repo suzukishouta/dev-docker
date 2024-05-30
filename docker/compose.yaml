@@ -1,5 +1,4 @@
 services:
-
   mysql:
     image: mysql:8.4.0
     ports:
@@ -30,10 +29,10 @@ services:
     privileged: true
     ports:
       - "80:80"
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html
     depends_on:
       - mysql
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
     volumes:
       - type: bind
         source: ./www
