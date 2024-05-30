@@ -1,0 +1,8 @@
+services:
+  mysql:
+    image: mysql:5.7.40
+    platform: linux/amd64
+
+  www:
+    image: atsu666/ioncube:7.3
+    platform: linux/amd64
