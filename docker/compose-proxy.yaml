@@ -24,15 +24,21 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
 
+  proxy:
+    image: jwilder/nginx-proxy:1.5.2
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+
   www:
     image: atsu666/acms:8.3
     privileged: true
-    ports:
-      - "80:80"
     depends_on:
       - mysql
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
+      - VIRTUAL_HOST=sample.local,www.sample.local
     volumes:
       - type: bind
         source: ./www
