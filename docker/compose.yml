@@ -1,8 +1,6 @@
 services:
 
   mysql:
-    # image: mysql:5.7.40
-    # platform: linux/amd64
     image: mysql:8.4.0
     ports:
       - "3306:3306"
@@ -28,8 +26,6 @@ services:
       - PMA_PASSWORD=root
 
   www:
-    # image: atsu666/ioncube:7.3
-    # platform: linux/amd64
     image: atsu666/acms:8.3
     privileged: true
     ports:
