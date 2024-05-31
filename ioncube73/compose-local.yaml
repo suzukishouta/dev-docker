@@ -1,13 +1,13 @@
 services:
-
   mysql:
-    image: mysql:8.4.0
+    image: mysql:5.7.40
+    platform: linux/amd64
     ports:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Asia/Tokyo
-    command: --innodb-use-native-aio=0
+    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - type: volume
         source: db
@@ -26,14 +26,15 @@ services:
       - PMA_PASSWORD=root
 
   www:
-    image: atsu666/acms:8.3
+    image: atsu666/ioncube:7.3
+    platform: linux/amd64
     privileged: true
     ports:
       - "80:80"
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html
     depends_on:
       - mysql
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
     volumes:
       - type: bind
         source: ./www
