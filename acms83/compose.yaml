@@ -6,7 +6,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Asia/Tokyo
-    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - type: volume
         source: db
@@ -14,8 +14,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:5.2.1
-    ports:
-      - "8080:80"
     depends_on:
       - mysql
     environment:
@@ -23,6 +21,7 @@ services:
       - PMA_HOSTS=mysql
       - PMA_USER=root
       - PMA_PASSWORD=root
+      - VIRTUAL_HOST=phpmyadmin.local,www.phpmyadmin.local
 
   proxy:
     image: jwilder/nginx-proxy:1.5.2
