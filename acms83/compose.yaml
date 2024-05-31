@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.0.37
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    depends_on:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+      - VIRTUAL_HOST=phpmyadmin.local,www.phpmyadmin.local
+
+  proxy:
+    image: jwilder/nginx-proxy:1.5.2
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+
+  www:
+    image: atsu666/acms:8.3
+    privileged: true
+    depends_on:
+      - mysql
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - VIRTUAL_HOST=sample.local,www.sample.local
+    volumes:
+      - type: bind
+        source: ./www
+        target: /var/www/html
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime:ro
+
+volumes:
+  db:
