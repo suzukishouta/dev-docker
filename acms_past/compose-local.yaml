@@ -1,0 +1,47 @@
+services:
+  mysql57:
+    image: mysql:5.7.40
+    platform: linux/amd64
+    ports:
+      - "3307:3306"
+    expose:
+      - "3307"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_TCP_PORT=3307
+      - TZ=Asia/Tokyo
+    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - type: volume
+        source: mysql57
+        target: /var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql57:3307
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+
+  www:
+    image: atsu666/ioncube:7.3
+    platform: linux/amd64
+    privileged: true
+    ports:
+      - "80:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    volumes:
+      - type: bind
+        source: ./www
+        target: /var/www/html
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime:ro
+
+volumes:
+  mysql57:
+    external: true
