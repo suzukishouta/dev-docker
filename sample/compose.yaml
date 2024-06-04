@@ -1,0 +1,20 @@
+services:
+  www:
+    image: atsu666/acms:8.3
+    privileged: true
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - VIRTUAL_HOST=sample.local,www.sample.local
+    volumes:
+      - type: bind
+        source: ./www
+        target: /var/www/html
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime:ro
+    networks:
+      - shark
+
+networks:
+  shark:
+    external: true

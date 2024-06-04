@@ -1,0 +1,21 @@
+services:
+  www:
+    image: atsu666/ioncube:7.3
+    platform: linux/amd64
+    privileged: true
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - VIRTUAL_HOST=sample01.local,www.sample01.local
+    volumes:
+      - type: bind
+        source: ./www
+        target: /var/www/html
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime:ro
+    networks:
+      - shark
+
+networks:
+  shark:
+    external: true

@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli('mysql', 'root', 'root', 'mysql');
+$mysqli = new mysqli('mysql80', 'root', 'root', 'mysql');
 if ($mysqli->connect_error) {
 	echo '接続失敗' . PHP_EOL;
 	exit();

@@ -1,0 +1,13 @@
+services:
+  proxy:
+    image: jwilder/nginx-proxy:1.5.2
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - "80:80"
+    networks:
+      - shark
+
+networks:
+  shark:
+    external: true

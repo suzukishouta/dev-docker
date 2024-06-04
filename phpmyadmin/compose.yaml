@@ -1,0 +1,16 @@
+services:
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql80
+      # - PMA_HOSTS=mysql57:3307
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+      - VIRTUAL_HOST=phpmyadmin.local,www.phpmyadmin.local
+    networks:
+      - shark
+
+networks:
+  shark:
+    external: true
