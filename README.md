@@ -25,7 +25,32 @@ docker container up --detach
 ## 03. a-blog cms用のコンテナを作成
 ver.3.0以降の場合はacms_latestフォルダを任意のフォルダ名に変更して使用します。
 ver.2.11以前の場合はacms_pastフォルダを任意のフォルダ名に変更して使用します。
-フォルダに移動したら02.と同様のコマンドでコンテナを作成します。
+### hostsを追加する
+compose.yamlに```VIRTUAL_HOST```という環境変数が設定されています。
+```
+services:
+  www:
+    image: atsu666/acms:8.3
+    privileged: true
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+      - VIRTUAL_HOST=sample.local,www.sample.local
+以下略
+```
+ブラウザでsample.localを表示させるとローカルを見に行くようにhostsファイルに追加します。
+```
+127.0.0.1 sample.local
+127.0.0.1 www.sample.local
+```
+VIRTUAL_HOSTで設定したURLにアクセスするとproxyコンテナで表示を振り分けてくれるので複数のa-blogのコンテナを同時に立ち上げることができます。
+その際はhostsに随時URLを追加してください。
+```
+127.0.0.1 sample01.local
+127.0.0.1 www.sample01.local
+127.0.0.1 sample02.local
+127.0.0.1 www.sample02.local
+```
+hostsファイルの編集ができたらフォルダに移動したら下記のコマンドでコンテナを作成します。
 ```
 docker container up --detach
 ```
