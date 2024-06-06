@@ -1,9 +1,5 @@
 # Dockerでa-blog cmsを動かします
 ## 01.　事前準備
-linux/and64のmysqlのイメージをpullします。  
-```
-docker image pull --platform linux/amd64 mysql:5.7.40
-```
 バージョン違いのMySqlを起動しますのでボリュームを2種類作ります。  
 ```
 docker volume create --name mysql80
