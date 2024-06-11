@@ -15,7 +15,7 @@ docker network create shark
 ## 02.　バックエンド用のコンテナを作成
 proxyフォルダとmysqlフォルダに移動してコンテナを作成します
 ```
-docker container up --detach
+docker compose up --detach
 ```
 ここで作ったコンテナは毎回使うので作業後も削除しない運用をおすすめします。
 ## 03. a-blog cms用のコンテナを作成
@@ -48,6 +48,6 @@ VIRTUAL_HOSTで設定したURLにアクセスするとproxyコンテナで表示
 ```
 hostsファイルの編集ができたらフォルダに移動したら下記のコマンドでコンテナを作成します。
 ```
-docker container up --detach
+docker compose up --detach
 ```
 こちらのコンテナはPC内のどこでも立ち上げることができますので、好きな場所にフォルダを移動して使用できます。
