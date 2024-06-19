@@ -6,7 +6,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Asia/Tokyo
-    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --innodb-use-native-aio=0
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
     volumes:
       - type: volume
         source: mysql80
@@ -25,7 +27,9 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_TCP_PORT=3307
       - TZ=Asia/Tokyo
-    command: --innodb-use-native-aio=0 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --innodb-use-native-aio=0
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
     volumes:
       - type: volume
         source: mysql57
