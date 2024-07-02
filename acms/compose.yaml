@@ -27,14 +27,14 @@ services:
       - PMA_HOSTS=mysql
       - PMA_USER=root
       - PMA_PASSWORD=root
-      - VIRTUAL_HOST=phpmyadmin.local,www.phpmyadmin.local
+      - VIRTUAL_HOST=phpmyadmin.localhost,www.phpmyadmin.localhost
 
   www:
     image: atsu666/acms:8.3
     privileged: true
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
-      - VIRTUAL_HOST=sample.local,www.sample.local
+      - VIRTUAL_HOST=sample.localhost,www.sample.localhost
     volumes:
       - type: bind
         source: ./www

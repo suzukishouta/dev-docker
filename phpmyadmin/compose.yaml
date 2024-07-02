@@ -7,7 +7,7 @@ services:
       # - PMA_HOSTS=mysql57:3307
       - PMA_USER=root
       - PMA_PASSWORD=root
-      - VIRTUAL_HOST=phpmyadmin.local,www.phpmyadmin.local
+      - VIRTUAL_HOST=phpmyadmin.localhost,www.phpmyadmin.localhost
     networks:
       - shark
 

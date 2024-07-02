@@ -4,7 +4,7 @@ services:
     privileged: true
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
-      - VIRTUAL_HOST=sample.local,www.sample.local
+      - VIRTUAL_HOST=sample.localhost,www.sample.localhost
     volumes:
       - type: bind
         source: ./www
