@@ -3,11 +3,14 @@ services:
     image: phpmyadmin:5.2.1
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOSTS=mysql80
-      # - PMA_HOSTS=mysql57:3307
+      # - PMA_HOSTS=mysql80
+      - PMA_HOSTS=mysql57:3307
       - PMA_USER=root
       - PMA_PASSWORD=root
       - VIRTUAL_HOST=phpmyadmin.localhost,www.phpmyadmin.localhost
+      - MEMORY_LIMIT=256M
+      - UPLOAD_LIMIT=128M
+
     networks:
       - shark
 
